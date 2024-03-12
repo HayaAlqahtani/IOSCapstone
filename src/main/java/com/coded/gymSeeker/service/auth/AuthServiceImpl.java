@@ -66,21 +66,49 @@ public class AuthServiceImpl implements AuthService {
         return response;
     }
 
-    @Override
-    public void signup(CreateSignUpRequest createSignupRequest) {
-        RoleEntity roleEntity = roleRepository.findRoleEntityByTitle(Roles.user.name())
-                .orElseThrow(() -> new BodyGuardException("no Roles Found"));
+//    @Override
+//    public void signup(CreateSignUpRequest createSignupRequest) {
+//        RoleEntity roleEntity = roleRepository.findRoleEntityByTitle(Roles.user.name())
+//                .orElseThrow(() -> new BodyGuardException("no Roles Found"));
+//
+//        UserEntity user = new UserEntity();
+//        user.setUsername(createSignupRequest.getUsername());
+//        user.setRoles(roleEntity);
+//        user.setUsername(createSignupRequest.getUsername());
+//        user.setPhoneNumber(createSignupRequest.getPhoneNumber());
+//        user.setGender(createSignupRequest.getGender());
+//        user.setEmail(createSignupRequest.getEmail());
+//        user.setPassword(bCryptPasswordEncoder.encode(createSignupRequest.getPassword()));
+//        userRepository.save(user);
+//    }
+@Override
+public AuthenticationResponse signup(CreateSignUpRequest createSignupRequest) {
+    RoleEntity roleEntity = roleRepository.findRoleEntityByTitle(Roles.user.name())
+            .orElseThrow(() -> new BodyGuardException("no Roles Found"));
 
-        UserEntity user = new UserEntity();
-        user.setUsername(createSignupRequest.getUsername());
-        user.setRoles(roleEntity);
-        user.setUsername(createSignupRequest.getUsername());
-        user.setPhoneNumber(createSignupRequest.getPhoneNumber());
-        user.setGender(createSignupRequest.getGender());
-        user.setEmail(createSignupRequest.getEmail());
-        user.setPassword(bCryptPasswordEncoder.encode(createSignupRequest.getPassword()));
-        userRepository.save(user);
-    }
+    UserEntity user = new UserEntity();
+    user.setUsername(createSignupRequest.getUsername());
+    user.setRoles(roleEntity);
+    user.setUsername(createSignupRequest.getUsername());
+    user.setPhoneNumber(createSignupRequest.getPhoneNumber());
+    user.setGender(createSignupRequest.getGender());
+    user.setEmail(createSignupRequest.getEmail());
+    user.setPassword(bCryptPasswordEncoder.encode(createSignupRequest.getPassword()));
+    userRepository.save(user);
+
+    // Load user details to generate a token
+    CustomUserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
+    String accessToken = jwtUtil.generateToken(userDetails);
+
+    // Create and return the AuthenticationResponse with the token
+    AuthenticationResponse response = new AuthenticationResponse();
+    response.setId(userDetails.getId());
+    response.setUsername(userDetails.getUsername());
+    response.setRole(userDetails.getRole());
+    response.setToken("Bearer " + accessToken);
+
+    return response;
+}
 
     @Override
     public void logout(LogOutResponce logoutResponse) {

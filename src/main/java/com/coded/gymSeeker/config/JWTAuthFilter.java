@@ -42,6 +42,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
                 if (usernmae == null){
                     throw new UserNotFoundException("user not found");
                 }
+
                 UserDetails userDetails = userDetailsService.loadUserByUsername(usernmae);
 
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());

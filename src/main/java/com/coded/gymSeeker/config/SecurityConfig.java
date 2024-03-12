@@ -27,8 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String BOOK_PATH = "/api/v1/book/**";
 
-
-    public static final String ADMIN_PATH = "/api/v1/admin-dashboard/**";
+    public static final String ADMIN_PATH = "/api/v1/admin/**";
     private static final List<String> ALLOWED_METHODS = Arrays.asList("GET", "PUT", "POST", "DELETE", "OPTIONS", "PATCH");
     private static final List<String> ALLOWED_HEADERS = Arrays.asList("x-requested-with", "authorization", "Content-Type",
             "Authorization", "credential", "X-XSRF-TOKEN", "X-Refresh-Token", "X-Client-Id", "x-client-id");
@@ -54,8 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(AUTH_PATH).permitAll()
                 .antMatchers(USER_PATH).hasAuthority("user")
-                .antMatchers(BOOK_PATH).hasAuthority("user")
                 .antMatchers(ADMIN_PATH).hasAuthority("admin")
+               .antMatchers(BOOK_PATH).hasAuthority("user")
                 .antMatchers("/swagger-ui/*", "/v3/api-docs/", "/swagger-resources/", "/configuration/", "/webjars/", "/favicon-*").permitAll()
                 .anyRequest().authenticated();
 

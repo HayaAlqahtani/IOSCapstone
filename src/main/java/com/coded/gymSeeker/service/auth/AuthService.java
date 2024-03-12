@@ -13,7 +13,7 @@ public interface AuthService {
     AuthenticationResponse login(CreateLoginRequest createLoginRequest);
 
 
-    void signup(CreateSignUpRequest createSignupRequest);
+    AuthenticationResponse signup(CreateSignUpRequest createSignupRequest);
 
 
     void logout(LogOutResponce logoutResponse);
