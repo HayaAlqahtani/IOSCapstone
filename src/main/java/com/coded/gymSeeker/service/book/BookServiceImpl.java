@@ -24,11 +24,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void SaveBook(Long nurseID) {
+    public void SaveBook(Long gymID) {
         BookEntity bookEntity=new BookEntity();
         UserEntity userEntity= userRepository.findById(UserDetailUtil.userDetails().getId())
                 .orElseThrow();
-        GymEntity gymEntity = gymRepository.findById(nurseID)
+        GymEntity gymEntity = gymRepository.findById(gymID)
                 .orElseThrow();
         bookEntity.setUser(userEntity);
         bookEntity.setGym(gymEntity);

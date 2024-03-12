@@ -4,10 +4,11 @@ import com.coded.gymSeeker.bo.gym.CreateGymRequest;
 import com.coded.gymSeeker.entity.GymEntity;
 import com.coded.gymSeeker.reposatriy.GymRepository;
 import com.coded.gymSeeker.util.enums.Gender;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class GymServiceImpl implements GymService{
 
 
@@ -21,7 +22,7 @@ public class GymServiceImpl implements GymService{
     public List<GymEntity> getAllGymsBasedOnFilter(Gender gender) {
         return gymRepository.findAll()
                 .stream()
-                .filter(nurse -> gender == null || nurse.getGender() == gender)
+                .filter(gym -> gender == null || gym.getGender() == gender)
                 .collect(Collectors.toList());
     }
 
