@@ -26,7 +26,6 @@ public class AuthController {
             AuthenticationResponse response = authService.signup(createSignupRequest);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception e) {
-            // Log the exception details
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }

@@ -68,7 +68,7 @@ public class AuthServiceImpl implements AuthService {
 
 //    @Override
 //    public void signup(CreateSignUpRequest createSignupRequest) {
-//        RoleEntity roleEntity = roleRepository.findRoleEntityByTitle(Roles.user.name())
+//        /RoleEntity roleEntity = roleRepository.findRoleEntityByTitle(Roles.user.name())
 //                .orElseThrow(() -> new BodyGuardException("no Roles Found"));
 //
 //        UserEntity user = new UserEntity();
@@ -96,11 +96,9 @@ public AuthenticationResponse signup(CreateSignUpRequest createSignupRequest) {
     user.setPassword(bCryptPasswordEncoder.encode(createSignupRequest.getPassword()));
     userRepository.save(user);
 
-    // Load user details to generate a token
     CustomUserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
     String accessToken = jwtUtil.generateToken(userDetails);
 
-    // Create and return the AuthenticationResponse with the token
     AuthenticationResponse response = new AuthenticationResponse();
     response.setId(userDetails.getId());
     response.setUsername(userDetails.getUsername());
