@@ -22,21 +22,19 @@ public class AuthController {
     }
     @PostMapping("/signup")
     public ResponseEntity<AuthenticationResponse> createUser(@RequestBody CreateSignUpRequest createSignupRequest) {
-        try {
             AuthenticationResponse response = authService.signup(createSignupRequest);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
+
+
     }
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody CreateLoginRequest createLoginRequest){
-
-        AuthenticationResponse response = (AuthenticationResponse) authService.login(createLoginRequest);
-        HttpStatus status = HttpStatus.OK;
-        if (response==null){
-            status = HttpStatus.BAD_REQUEST;
+        AuthenticationResponse response=authService.login(createLoginRequest);
+        HttpStatus status= HttpStatus.OK;
+        if (response == null){
+            status= HttpStatus.BAD_REQUEST;
         }
+
         return new ResponseEntity<>(response, status);
     }
     @PostMapping("/logout")

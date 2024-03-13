@@ -8,13 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface AuthService {
-
-
-    AuthenticationResponse login(CreateLoginRequest createLoginRequest);
-
-
     AuthenticationResponse signup(CreateSignUpRequest createSignupRequest);
-
-
-    void logout(LogOutResponce logoutResponse);
+    AuthenticationResponse login(CreateLoginRequest createLoginRequest);
+    void logout(LogOutResponce logoutResponce);
 }

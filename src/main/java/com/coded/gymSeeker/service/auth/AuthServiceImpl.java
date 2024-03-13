@@ -67,8 +67,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
 //    @Override
-//    public void signup(CreateSignUpRequest createSignupRequest) {
-//        /RoleEntity roleEntity = roleRepository.findRoleEntityByTitle(Roles.user.name())
+//    public AuthenticationResponse signup(CreateSignUpRequest createSignupRequest) {
+//        RoleEntity roleEntity = roleRepository.findRoleEntityByTitle(Roles.user.name())
 //                .orElseThrow(() -> new BodyGuardException("no Roles Found"));
 //
 //        UserEntity user = new UserEntity();
@@ -121,7 +121,10 @@ public AuthenticationResponse signup(CreateSignUpRequest createSignupRequest) {
 
     private void authentication(String username, String password) {
         try {
+         //   System.out.println("line 100 username and password: " +  username + password);
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            System.out.println("line 101 here ");
+
         } catch (BodyGuardException e) {
             throw new BodyGuardException("Incorrect password");
         } catch (AuthenticationServiceException e) {

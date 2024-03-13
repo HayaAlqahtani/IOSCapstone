@@ -3,10 +3,11 @@ package com.coded.gymSeeker.service.auth;
 import com.coded.gymSeeker.bo.customUserDetails.CustomUserDetails;
 import com.coded.gymSeeker.entity.UserEntity;
 import com.coded.gymSeeker.reposatriy.UserRepository;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 @Service
-public class CustomUserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
         private final UserRepository userRepository;
 
         public CustomUserDetailsService(UserRepository userRepository) {
@@ -14,7 +15,7 @@ public class CustomUserDetailsService {
         }
 
 
-     // @Override
+      @Override
        public CustomUserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
             try {
                 return buildCustomUserDetailsOfUsername(s);

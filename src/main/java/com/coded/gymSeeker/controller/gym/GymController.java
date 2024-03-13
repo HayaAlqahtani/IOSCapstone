@@ -37,14 +37,14 @@ public class GymController {
     }
 
 
-    @GetMapping("/all")
+    @GetMapping("/filter")
     public List<GymEntity> getAllGyms(@RequestParam(required = false) Gender gender) {
         return gymService.getAllGymsBasedOnFilter(gender);
     }
 
     // Endpoint to fetch details of a specific gym by ID
     @GetMapping("/id")
-    public GymEntity getGymById(@PathVariable Long id) {
+    public GymEntity getGymById(@RequestParam Long id) {
         return gymService.getGymById(id);
     }
 
