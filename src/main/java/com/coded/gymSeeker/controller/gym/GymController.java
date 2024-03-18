@@ -1,6 +1,7 @@
 package com.coded.gymSeeker.controller.gym;
 
 import com.coded.gymSeeker.bo.gym.CreateGymRequest;
+import com.coded.gymSeeker.bo.member.CreateUserDetails;
 import com.coded.gymSeeker.entity.GymEntity;
 import com.coded.gymSeeker.service.book.BookService;
 import com.coded.gymSeeker.service.gym.GymService;
@@ -12,14 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/api/v1/gym")
 public class GymController {
     private final GymService gymService;
 
-
     private final UserService userService;
-
 
     private final BookService bookService;
 
@@ -30,7 +29,7 @@ public class GymController {
     }
 
     //create gym
-    @PostMapping("/create")
+    @PostMapping("admin/create")
     public ResponseEntity<String> createGym(@RequestBody CreateGymRequest createGymRequest) {
         gymService.createGym(createGymRequest);
         return ResponseEntity.ok("Gym created successfully");
@@ -47,5 +46,11 @@ public class GymController {
     public GymEntity getGymById(@RequestParam Long id) {
         return gymService.getGymById(id);
     }
-
+    @GetMapping("/get_all_gyms")
+    public List<GymEntity> getAllGyms() {
+        return gymService.getAllGyms();
+    }
 }
+
+
+

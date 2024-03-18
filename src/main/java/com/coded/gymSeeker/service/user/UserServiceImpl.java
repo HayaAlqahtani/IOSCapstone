@@ -25,10 +25,6 @@ public class UserServiceImpl implements UserService {
         userEntity.setPhoneNumber(createUserDetails.getPhoneNumber());
     }
 
-    @Override
-    public User getUserById(Long userId) {
-        return null;
-    }
 
     @Override
     public List<String> getALlUsersWithStrongPassword() {
@@ -37,6 +33,18 @@ public class UserServiceImpl implements UserService {
                 .map(UserEntity::getUsername)
                 .collect(Collectors.toList());
     }
+    @Override
+    public CreateUserDetails getUserById(Long userId) {
+        UserEntity userEntity = userRepository.findById(userId).orElse(null);
+        CreateUserDetails createUserDetails = new CreateUserDetails();
+        if (userEntity != null) {
 
+            createUserDetails.setId(userEntity.getId());
+            createUserDetails.setUsername(userEntity.getUsername());
+            createUserDetails.setEmail(userEntity.getEmail());
+            createUserDetails.setPhoneNumber(userEntity.getPhoneNumber());
+        }
+        return createUserDetails;
+    }
 }
 

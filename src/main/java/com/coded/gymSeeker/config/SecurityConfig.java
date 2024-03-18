@@ -27,6 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String BOOK_PATH = "/api/v1/book/**";
     public static final String GYM_PATH = "/api/v1/gym/**";
+    public static final String GYM_ADMIN_PATH = "/api/v1/gym/admin/**";
+
+
 
 
     public static final String ADMIN_PATH = "/api/v1/admin/**";
@@ -56,6 +59,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(AUTH_PATH).permitAll()
                 .antMatchers(USER_PATH).hasAuthority("user")
                 .antMatchers(GYM_PATH).hasAuthority("user")
+                .antMatchers(GYM_ADMIN_PATH).hasAuthority("admin")
+
                 .antMatchers(ADMIN_PATH).hasAuthority("admin")
                .antMatchers(BOOK_PATH).hasAuthority("user")
                 .antMatchers("/swagger-ui/*", "/v3/api-docs/", "/swagger-resources/", "/configuration/", "/webjars/", "/favicon-*").permitAll()

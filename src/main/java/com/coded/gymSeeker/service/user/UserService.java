@@ -12,7 +12,7 @@ public interface UserService {
 
     void saveUser(CreateUserDetails createUserDetails);
 
-    User getUserById(Long userId);
+    CreateUserDetails getUserById(Long userId);
 }
 
 

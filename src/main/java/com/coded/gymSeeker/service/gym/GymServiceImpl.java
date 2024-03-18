@@ -29,8 +29,8 @@ public class GymServiceImpl implements GymService{
 
 
     @Override
-    public GymEntity getGymById(Long id) {
-        return gymRepository.findById(id)
+    public GymEntity getGymById(Long gymId) {
+        return gymRepository.findById(gymId)
                 .orElseThrow();
     }
 
@@ -42,6 +42,10 @@ public class GymServiceImpl implements GymService{
         gym.setLocation(createGymRequest.getLocation());
         gym.setGender(createGymRequest.getGender());
         gymRepository.save(gym);
+    }
+    @Override
+    public List<GymEntity> getAllGyms() {
+        return gymRepository.findAll();
     }
 }
 

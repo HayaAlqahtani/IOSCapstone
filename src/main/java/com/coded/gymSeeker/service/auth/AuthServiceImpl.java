@@ -89,7 +89,7 @@ public AuthenticationResponse signup(CreateSignUpRequest createSignupRequest) {
     UserEntity user = new UserEntity();
     user.setUsername(createSignupRequest.getUsername());
     user.setRoles(roleEntity);
-    user.setUsername(createSignupRequest.getUsername());
+    user.setUsername(createSignupRequest.getUsername().toLowerCase());
     user.setPhoneNumber(createSignupRequest.getPhoneNumber());
     user.setGender(createSignupRequest.getGender());
     user.setEmail(createSignupRequest.getEmail());

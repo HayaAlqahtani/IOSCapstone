@@ -28,4 +28,15 @@ public class UserController {
         }
         return ResponseEntity.ok(" User Has Been Created");
     }
+    @GetMapping("/user-info")
+    public ResponseEntity<CreateUserDetails> userinfo(@RequestParam Long userId){
+        CreateUserDetails user = (CreateUserDetails) userService.getUserById(userId);
+        if (user != null){
+            return ResponseEntity.ok(user);
+
+        }else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
 }

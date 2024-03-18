@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 
 public class CreateUserDetails {
+    private Long Id;
     private String username;
     private String email;
     private Gender gender;
@@ -41,5 +42,13 @@ public class CreateUserDetails {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
     }
 }
